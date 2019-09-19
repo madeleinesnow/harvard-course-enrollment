@@ -1,0 +1,33 @@
+---
+title: "Course Enrollment 9.19.19"
+author: "Madeleine Snow"
+date: "9/19/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(readxl)
+library(janitor)
+library(tidyverse)
+
+```
+
+```{r code1, include = FALSE}
+
+x <- read_excel("class_enrollment_summary_by_term_9.19.19.xlsx", skip = 3)
+    
+z <- x %>%
+  clean(names) %>%
+  filter(`Course Department`== "English") %>%
+  select(Total) %>% 
+  arrange(desc(Total)) %>% 
+  summarise(maxenroll = max(Total))
+
+# The largest English class at Harvard has 60 people.
+
+```
+
+The largest English class at Harvard has `r z` students.
+
