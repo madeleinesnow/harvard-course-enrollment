@@ -14,20 +14,17 @@ library(tidyverse)
 
 ```
 
-```{r code1, include = FALSE}
 
-x <- read_excel("class_enrollment_summary_by_term_9.19.19.xlsx", skip = 3)
-    
-z <- x %>%
-  clean(names) %>%
-  filter(`Course Department`== "English") %>%
-  select(Total) %>% 
-  arrange(desc(Total)) %>% 
-  summarise(maxenroll = max(Total))
 
-# The largest English class at Harvard has 60 people.
+```{r, include=FALSE}
+
+x <- read_excel("./class_enrollment_summary_by_term_9.19.19.xlsx", skip = 3) %>% 
+  clean_names() %>% 
+  filter(course_department == "English") %>% 
+  arrange(desc(total)) %>% 
+  select(course_department, course_name, total) %>% 
+  head(1)
 
 ```
 
-The largest English class at Harvard has `r z` students.
-
+The English class with the highest enrollment is `r x`.
